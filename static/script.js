@@ -1,5 +1,6 @@
 let database;
 let currentPlayer;
+let carMoveDistance;
 
 function checkDeviceAndOrientation() {
     const deviceMessage = document.getElementById('device-message');
@@ -18,7 +19,15 @@ function checkDeviceAndOrientation() {
         deviceMessage.style.display = 'none';
         orientationMessage.style.display = 'none';
         content.style.display = 'block';
+        calculateCarMoveDistance();
     }
+}
+
+function calculateCarMoveDistance() {
+    const screenHeight = window.innerHeight;
+    const carHeight = 100; // Height of the car image
+    const bottomMargin = 10; // Margin from the bottom of the screen
+    carMoveDistance = (screenHeight - (carHeight + bottomMargin)) / 100;
 }
 
 window.addEventListener('load', checkDeviceAndOrientation);
@@ -58,7 +67,7 @@ function login() {
         if (data.success) {
             currentPlayer = data.player;
             document.getElementById('login-form').style.display = 'none';
-            document.getElementById('game-area').style.display = 'flex';
+            document.getElementById('game-area').style.display = 'block';
             listenForGameUpdates(gameId);
         } else {
             alert(data.message || 'Failed to login');
@@ -81,7 +90,7 @@ function makeClick() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            document.getElementById('your-clicks').textContent = data.clicks;
+            moveCar(currentPlayer, data.clicks);
             if (data.winner) {
                 alert('Congratulations! You won!');
                 document.getElementById('game-area').removeEventListener('click', makeClick);
@@ -100,7 +109,8 @@ function listenForGameUpdates(gameId) {
     const gameRef = database.ref(`games/${gameId}`);
     gameRef.on('value', (snapshot) => {
         const game = snapshot.val();
-        updateClickCounts(game);
+        moveCar('player1', game.player1_clicks);
+        moveCar('player2', game.player2_clicks);
         if (game.status === 'finished') {
             alert(`Game over! The winner is ${game.winner}`);
             document.getElementById('game-area').removeEventListener('click', makeClick);
@@ -108,9 +118,8 @@ function listenForGameUpdates(gameId) {
     });
 }
 
-function updateClickCounts(game) {
-    const yourClicks = currentPlayer === 'player1' ? game.player1_clicks : game.player2_clicks;
-    const opponentClicks = currentPlayer === 'player1' ? game.player2_clicks : game.player1_clicks;
-    document.getElementById('your-clicks').textContent = yourClicks;
-    document.getElementById('opponent-clicks').textContent = opponentClicks;
+function moveCar(player, clicks) {
+    const car = document.getElementById(player === 'player1' ? 'car1' : 'car2');
+    const newPosition = window.innerHeight - (100 + 10 + (clicks * carMoveDistance));
+    car.style.top = `${newPosition}px`;
 }
