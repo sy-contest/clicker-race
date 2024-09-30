@@ -1,6 +1,30 @@
 let database;
 let currentPlayer;
 
+function checkDeviceAndOrientation() {
+    const deviceMessage = document.getElementById('device-message');
+    const orientationMessage = document.getElementById('orientation-message');
+    const content = document.getElementById('content');
+
+    if (window.innerWidth >= 768) {
+        deviceMessage.style.display = 'block';
+        orientationMessage.style.display = 'none';
+        content.style.display = 'none';
+    } else if (screen.orientation.angle === 90 || screen.orientation.angle === -90) {
+        deviceMessage.style.display = 'none';
+        orientationMessage.style.display = 'block';
+        content.style.display = 'none';
+    } else {
+        deviceMessage.style.display = 'none';
+        orientationMessage.style.display = 'none';
+        content.style.display = 'block';
+    }
+}
+
+window.addEventListener('load', checkDeviceAndOrientation);
+window.addEventListener('resize', checkDeviceAndOrientation);
+window.addEventListener('orientationchange', checkDeviceAndOrientation);
+
 fetch('/config')
     .then(response => response.json())
     .then(firebaseConfig => {
@@ -89,4 +113,4 @@ function updateClickCounts(game) {
     const opponentClicks = currentPlayer === 'player1' ? game.player2_clicks : game.player1_clicks;
     document.getElementById('your-clicks').textContent = yourClicks;
     document.getElementById('opponent-clicks').textContent = opponentClicks;
-}s
+}

@@ -8,6 +8,12 @@ body {
     background-color: #f0f0f0;
 }
 
+#device-message, #orientation-message {
+    text-align: center;
+    font-size: 24px;
+    padding: 20px;
+}
+
 #login-form, #game-area {
     background-color: white;
     padding: 20px;
@@ -32,4 +38,22 @@ button {
 
 button:hover {
     background-color: #45a049;
+}
+
+@media (min-width: 768px) {
+    #content {
+        display: none !important;
+    }
+    #device-message {
+        display: block !important;
+    }
+}
+
+@media (orientation: landscape) {
+    #content {
+        display: none !important;
+    }
+    #orientation-message {
+        display: block !important;
+    }
 }

@@ -7,20 +7,28 @@
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <div id="login-form">
-        <h2>Login</h2>
-        <input type="text" id="username" placeholder="Enter your username">
-        <input type="text" id="game-id" placeholder="Enter game ID">
-        <button id="login-button">Login</button>
+    <div id="device-message" style="display: none;">
+        <p>This website only works on mobile phones.</p>
     </div>
+    <div id="orientation-message" style="display: none;">
+        <p>Please rotate your device to portrait mode.</p>
+    </div>
+    <div id="content" style="display: none;">
+        <div id="login-form">
+            <h2>Login</h2>
+            <input type="text" id="username" placeholder="Enter your username">
+            <input type="text" id="game-id" placeholder="Enter game ID">
+            <button id="login-button">Login</button>
+        </div>
 
-    <div id="game-area" style="display: none;">
-        <h2>1v1 Clicker Game</h2>
-        <p>First to 100 clicks wins!</p>
-        <button id="click-button">Click Me!</button>
-        <p>Your clicks: <span id="your-clicks">0</span></p>
-        <p>Opponent clicks: <span id="opponent-clicks">0</span></p>
-        <p id="result"></p>
+        <div id="game-area" style="display: none;">
+            <h2>1v1 Clicker Game</h2>
+            <p>First to 100 clicks wins!</p>
+            <button id="click-button">Click Me!</button>
+            <p>Your clicks: <span id="your-clicks">0</span></p>
+            <p>Opponent clicks: <span id="opponent-clicks">0</span></p>
+            <p id="result"></p>
+        </div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
