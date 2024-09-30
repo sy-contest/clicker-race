@@ -132,12 +132,7 @@ button:hover {
     transform: translateX(-50%);
     font-size: 36px;
     font-weight: bold;
-    color: #B8860B;
-    text-shadow: 
-        -1px -1px 0 #555,
-        1px -1px 0 #555,
-        -1px 1px 0 #555,
-        1px 1px 0 #555;
+    color: #ffc227;
     z-index: 1;
     line-height: 40px; /* Match the height of the starting line */
 }
