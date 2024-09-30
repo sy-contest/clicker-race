@@ -127,14 +127,19 @@ button:hover {
 
 #start-text {
     position: absolute;
-    bottom: 124px;
+    bottom: 84px; /* Align with the bottom of the starting line */
     left: 50%;
     transform: translateX(-50%);
     font-size: 36px;
     font-weight: bold;
     color: #B8860B;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    text-shadow: 
+        -1px -1px 0 #555,
+        1px -1px 0 #555,
+        -1px 1px 0 #555,
+        1px 1px 0 #555;
     z-index: 1;
+    line-height: 40px; /* Match the height of the starting line */
 }
 
 @media (min-width: 768px) {
