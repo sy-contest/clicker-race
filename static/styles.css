@@ -149,7 +149,7 @@ button:hover {
 
 #finish-text {
     position: absolute;
-    top: 84px; /* Align with the top of the finish line */
+    top: 84px; /* Align with  the top of the finish line */
     left: 50%;
     transform: translateX(-50%);
     font-size: 36px;
