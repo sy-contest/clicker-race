@@ -163,6 +163,17 @@ button:hover {
     -ms-user-select: none; /* For Internet Explorer/Edge */
 }
 
+#game-info {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    z-index: 3;
+}
+
 @media (min-width: 768px) {
     #content {
         display: none !important;

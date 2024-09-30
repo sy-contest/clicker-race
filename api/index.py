@@ -129,5 +129,35 @@ def game_status():
         'player2_ready': game['player2_ready']
     })
 
+@app.route('/watch/<game_id>')
+def watch(game_id):
+    game_ref = db.reference(f'games/{game_id}')
+    game = game_ref.get()
+
+    if not game:
+        return jsonify({'success': False, 'message': 'Game not found'}), 404
+
+    return render_template('watch.html', game_id=game_id)
+
+@app.route('/game_data/<game_id>')
+def game_data(game_id):
+    game_ref = db.reference(f'games/{game_id}')
+    game = game_ref.get()
+
+    if not game:
+        return jsonify({'success': False, 'message': 'Game not found'}), 404
+
+    return jsonify({
+        'success': True,
+        'status': game['status'],
+        'player1': game['player1'],
+        'player2': game['player2'],
+        'player1_clicks': game['player1_clicks'],
+        'player2_clicks': game['player2_clicks'],
+        'player1_ready': game.get('player1_ready', False),
+        'player2_ready': game.get('player2_ready', False),
+        'winner': game.get('winner', None)
+    })
+
 if __name__ == '__main__':
     app.run(debug=True)
