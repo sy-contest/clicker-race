@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Number Guessing Game</title>
+    <title>1v1 Clicker Game</title>
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
@@ -15,10 +15,11 @@
     </div>
 
     <div id="game-area" style="display: none;">
-        <h2>Number Guessing Game</h2>
-        <p>Guess a number between 1 and 100</p>
-        <input type="number" id="guess-input" min="1" max="100">
-        <button id="guess-button">Make Guess</button>
+        <h2>1v1 Clicker Game</h2>
+        <p>First to 100 clicks wins!</p>
+        <button id="click-button">Click Me!</button>
+        <p>Your clicks: <span id="your-clicks">0</span></p>
+        <p>Opponent clicks: <span id="opponent-clicks">0</span></p>
         <p id="result"></p>
     </div>
 

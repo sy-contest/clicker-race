@@ -53,17 +53,13 @@ def login():
 
     return jsonify({'success': True, 'player': player})
 
-@app.route('/make_guess', methods=['POST'])
-def make_guess():
+@app.route('/click', methods=['POST'])
+def click():
     if 'username' not in session or 'game_id' not in session:
         return jsonify({'success': False, 'message': 'Not logged in'}), 401
 
-    guess = request.json.get('guess')
     game_id = session['game_id']
     player = session['player']
-
-    if not guess:
-        return jsonify({'success': False, 'message': 'No guess provided'}), 400
 
     game_ref = db.reference(f'games/{game_id}')
     game = game_ref.get()
@@ -74,14 +70,15 @@ def make_guess():
     if game['status'] != 'playing':
         return jsonify({'success': False, 'message': 'Game is not in playing state'}), 400
 
-    correct_number = game['correct_number']
-    
-    if int(guess) == correct_number:
+    # Increment click count
+    new_count = game[f'{player}_clicks'] + 1
+    game_ref.update({f'{player}_clicks': new_count})
+
+    if new_count >= 100:
         game_ref.update({'status': 'finished', 'winner': player})
-        return jsonify({'success': True, 'message': 'Correct guess! You win!', 'winner': player})
+        return jsonify({'success': True, 'message': 'You win!', 'winner': player, 'clicks': new_count})
     else:
-        hint = 'higher' if int(guess) < correct_number else 'lower'
-        return jsonify({'success': True, 'message': f'Incorrect. Try a {hint} number.'})
+        return jsonify({'success': True, 'message': 'Click recorded', 'clicks': new_count})
 
 @app.route('/')
 def index():
