@@ -51,6 +51,10 @@ button:hover {
     background-image: 
         /* White dashed lines */
         linear-gradient(to right, transparent 48%, white 48%, white 52%, transparent 52%),
+        /* Finish line */
+        linear-gradient(to right, 
+            transparent 30%, white 30%, white 70%, transparent 70%
+        ),
         /* Starting line */
         linear-gradient(to right, 
             transparent 30%, white 30%, white 70%, transparent 70%
@@ -60,10 +64,12 @@ button:hover {
     background-size: 
         40px 100%,
         100% 40px,
+        100% 40px,
         100% 100%;
-    background-repeat: repeat-y, no-repeat, no-repeat;
+    background-repeat: repeat-y, no-repeat, no-repeat, no-repeat;
     background-position: 
         center,
+        center top 84px,
         center bottom 84px,
         center;
     overflow: hidden;
@@ -132,9 +138,25 @@ button:hover {
     transform: translateX(-50%);
     font-size: 36px;
     font-weight: bold;
-    color: #ffc227;
+    color: #e7af21;
     z-index: 1;
     line-height: 40px; /* Match the height of the starting line */
+    user-select: none; /* Disable text selection */
+    -webkit-user-select: none; /* For Safari */
+    -moz-user-select: none; /* For Firefox */
+    -ms-user-select: none; /* For Internet Explorer/Edge */
+}
+
+#finish-text {
+    position: absolute;
+    top: 84px; /* Align with the top of the finish line */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 36px;
+    font-weight: bold;
+    color: #FF0000;
+    z-index: 1;
+    line-height: 40px; /* Match the height of the finish line */
     user-select: none; /* Disable text selection */
     -webkit-user-select: none; /* For Safari */
     -moz-user-select: none; /* For Firefox */
