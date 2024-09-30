@@ -58,13 +58,13 @@ button:hover {
         /* Road */
         linear-gradient(to right, #4CAF50 0%, #4CAF50 30%, #555 30%, #555 70%, #4CAF50 70%, #4CAF50 100%);
     background-size: 
-        20px 100%,
+        40px 100%,
         100% 5px,
         100% 100%;
     background-repeat: repeat-y, no-repeat, no-repeat;
     background-position: 
         center,
-        center bottom 110px,
+        center bottom 84px,
         center;
 }
 
