@@ -96,9 +96,9 @@ function setReady() {
             document.getElementById('ready-button').style.display = 'none';
             if (data.message === 'Game started') {
                 gameReady = true;
-                alert('Both players are ready. The game has started!');
+                // alert('Both players are ready. The game has started!');
             } else {
-                alert('Waiting for other player to be ready...');
+                // alert('Waiting for other player to be ready...');
             }
         } else {
             alert(data.message || 'Failed to set ready state');
@@ -112,7 +112,7 @@ function setReady() {
 
 function makeClick() {
     if (!gameReady) {
-        alert('Please wait for both players to be ready');
+        // alert('Please wait for both players to be ready');
         return;
     }
 
@@ -149,7 +149,7 @@ function listenForGameUpdates(gameId) {
         moveCar('player2', game.player2_clicks);
         if (game.status === 'playing' && !gameReady) {
             gameReady = true;
-            alert('Both players are ready. The game has started!');
+            //alert('Both players are ready. The game has started!');
         }
         if (game.status === 'finished') {
             alert(`Game over! The winner is ${game.winner}`);
