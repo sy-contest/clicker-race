@@ -51,15 +51,19 @@ button:hover {
     background-image: 
         /* White dashed lines */
         linear-gradient(to right, transparent 48%, white 48%, white 52%, transparent 52%),
-        linear-gradient(white 50%, transparent 50%),
+        /* Starting line */
+        linear-gradient(white, white),
         /* Road */
         linear-gradient(to right, #4CAF50 0%, #4CAF50 30%, #555 30%, #555 70%, #4CAF50 70%, #4CAF50 100%);
     background-size: 
         20px 100%,
-        100% 20px,
+        100% 5px,
         100% 100%;
-    background-repeat: repeat-y, repeat-x, no-repeat;
-    background-position: center, center, center;
+    background-repeat: repeat-y, no-repeat, no-repeat;
+    background-position: 
+        center,
+        center bottom 110px,
+        center;
 }
 
 .car {
