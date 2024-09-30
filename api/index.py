@@ -60,7 +60,7 @@ def ready():
 
     game_id = session['game_id']
     player = session['player']
-
+ 
     game_ref = db.reference(f'games/{game_id}')
     game_ref.child(f'{player}_ready').set(True)
 
