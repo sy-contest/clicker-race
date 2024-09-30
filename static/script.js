@@ -1,6 +1,7 @@
 let database;
 let currentPlayer;
 let carMoveDistance;
+let gameReady = false;
 
 function checkDeviceAndOrientation() {
     const deviceMessage = document.getElementById('device-message');
@@ -48,6 +49,7 @@ fetch('/config')
 
 function initializeEventListeners() {
     document.getElementById('login-button').addEventListener('click', login);
+    document.getElementById('ready-button').addEventListener('click', setReady);
     document.getElementById('game-area').addEventListener('click', makeClick);
 }
 
@@ -68,6 +70,7 @@ function login() {
             currentPlayer = data.player;
             document.getElementById('login-form').style.display = 'none';
             document.getElementById('game-area').style.display = 'block';
+            document.getElementById('ready-button').style.display = 'block';
             listenForGameUpdates(gameId);
         } else {
             alert(data.message || 'Failed to login');
@@ -79,7 +82,40 @@ function login() {
     });
 }
 
+function setReady() {
+    fetch('/ready', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({}),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('ready-button').style.display = 'none';
+            if (data.message === 'Game started') {
+                gameReady = true;
+                alert('Both players are ready. The game has started!');
+            } else {
+                alert('Waiting for other player to be ready...');
+            }
+        } else {
+            alert(data.message || 'Failed to set ready state');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while setting ready state');
+    });
+}
+
 function makeClick() {
+    if (!gameReady) {
+        alert('Please wait for both players to be ready');
+        return;
+    }
+
     fetch('/click', {
         method: 'POST',
         headers: {
@@ -111,6 +147,10 @@ function listenForGameUpdates(gameId) {
         const game = snapshot.val();
         moveCar('player1', game.player1_clicks);
         moveCar('player2', game.player2_clicks);
+        if (game.status === 'playing' && !gameReady) {
+            gameReady = true;
+            alert('Both players are ready. The game has started!');
+        }
         if (game.status === 'finished') {
             alert(`Game over! The winner is ${game.winner}`);
             document.getElementById('game-area').removeEventListener('click', makeClick);
