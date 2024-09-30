@@ -39,7 +39,7 @@ fetch('/config')
 
 function initializeEventListeners() {
     document.getElementById('login-button').addEventListener('click', login);
-    document.getElementById('click-button').addEventListener('click', makeClick);
+    document.getElementById('game-area').addEventListener('click', makeClick);
 }
 
 function login() {
@@ -58,7 +58,7 @@ function login() {
         if (data.success) {
             currentPlayer = data.player;
             document.getElementById('login-form').style.display = 'none';
-            document.getElementById('game-area').style.display = 'block';
+            document.getElementById('game-area').style.display = 'flex';
             listenForGameUpdates(gameId);
         } else {
             alert(data.message || 'Failed to login');
@@ -84,7 +84,7 @@ function makeClick() {
             document.getElementById('your-clicks').textContent = data.clicks;
             if (data.winner) {
                 alert('Congratulations! You won!');
-                document.getElementById('click-button').disabled = true;
+                document.getElementById('game-area').removeEventListener('click', makeClick);
             }
         } else {
             alert(data.message || 'Failed to record click');
@@ -103,7 +103,7 @@ function listenForGameUpdates(gameId) {
         updateClickCounts(game);
         if (game.status === 'finished') {
             alert(`Game over! The winner is ${game.winner}`);
-            document.getElementById('click-button').disabled = true;
+            document.getElementById('game-area').removeEventListener('click', makeClick);
         }
     });
 }
