@@ -48,15 +48,23 @@ button:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('/static/road.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-image: 
+        /* White dashed lines */
+        linear-gradient(to right, transparent 48%, white 48%, white 52%, transparent 52%),
+        linear-gradient(white 50%, transparent 50%),
+        /* Road */
+        linear-gradient(to right, #4CAF50 0%, #4CAF50 30%, #555 30%, #555 70%, #4CAF50 70%, #4CAF50 100%);
+    background-size: 
+        20px 100%,
+        100% 20px,
+        100% 100%;
+    background-repeat: repeat-y, repeat-x, no-repeat;
+    background-position: center, center, center;
 }
 
 .car {
     position: absolute;
-    width: 75px;
+    width: 60px;
     height: 100px;
     background-size: contain;
     background-repeat: no-repeat;
@@ -65,13 +73,13 @@ button:hover {
 }
 
 #car1 {
-    left: 25%;
+    left: 35%;
     bottom: 10px;
     background-image: url('/static/c1.png');
 }
 
 #car2 {
-    right: 25%;
+    right: 35%;
     bottom: 10px;
     background-image: url('/static/c2.png');
 }
