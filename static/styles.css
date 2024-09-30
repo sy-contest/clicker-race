@@ -110,6 +110,7 @@ button:hover {
     background-repeat: no-repeat;
     background-position: center;
     transition: top 0.3s ease-out;
+    z-index: 2;
 }
 
 #car1 {
@@ -122,6 +123,18 @@ button:hover {
     right: 35%;
     bottom: 10px;
     background-image: url('/static/c2.png');
+}
+
+#start-text {
+    position: absolute;
+    bottom: 124px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 36px;
+    font-weight: bold;
+    color: #B8860B;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    z-index: 1;
 }
 
 @media (min-width: 768px) {
