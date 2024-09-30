@@ -135,6 +135,10 @@ button:hover {
     color: #ffc227;
     z-index: 1;
     line-height: 40px; /* Match the height of the starting line */
+    user-select: none; /* Disable text selection */
+    -webkit-user-select: none; /* For Safari */
+    -moz-user-select: none; /* For Firefox */
+    -ms-user-select: none; /* For Internet Explorer/Edge */
 }
 
 @media (min-width: 768px) {
