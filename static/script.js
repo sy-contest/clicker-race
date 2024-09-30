@@ -2,6 +2,7 @@ let database;
 let currentPlayer;
 let carMoveDistance;
 let gameReady = false;
+let backgroundMusic;
 
 function checkDeviceAndOrientation() {
     const deviceMessage = document.getElementById('device-message');
@@ -51,6 +52,7 @@ function initializeEventListeners() {
     document.getElementById('login-button').addEventListener('click', login);
     document.getElementById('ready-button').addEventListener('click', setReady);
     document.getElementById('game-area').addEventListener('click', makeClick);
+    backgroundMusic = document.getElementById('background-music');
 }
 
 function login() {
@@ -96,9 +98,9 @@ function setReady() {
             document.getElementById('ready-button').style.display = 'none';
             if (data.message === 'Game started') {
                 gameReady = true;
-                // alert('Both players are ready. The game has started!');
+                playBackgroundMusic();
             } else {
-                // alert('Waiting for other player to be ready...');
+                // Waiting for other player to be ready...
             }
         } else {
             alert(data.message || 'Failed to set ready state');
@@ -107,6 +109,12 @@ function setReady() {
     .catch(error => {
         console.error('Error:', error);
         alert('An error occurred while setting ready state');
+    });
+}
+
+function playBackgroundMusic() {
+    backgroundMusic.play().catch(error => {
+        console.error('Error playing background music:', error);
     });
 }
 
@@ -149,11 +157,13 @@ function listenForGameUpdates(gameId) {
         moveCar('player2', game.player2_clicks);
         if (game.status === 'playing' && !gameReady) {
             gameReady = true;
-            //alert('Both players are ready. The game has started!');
+            playBackgroundMusic();
         }
         if (game.status === 'finished') {
             alert(`Game over! The winner is ${game.winner}`);
             document.getElementById('game-area').removeEventListener('click', makeClick);
+            backgroundMusic.pause();
+            backgroundMusic.currentTime = 0;
         }
     });
 }
